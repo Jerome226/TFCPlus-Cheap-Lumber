@@ -17,7 +17,7 @@ public class ItemNPLumber extends ItemTerra {
 
     private final IIcon[] icons = new IIcon[Global.WOOD_ALL.length];
 
-    ItemNPLumber(){
+    ItemNPLumber() {
         super();
         this.hasSubtypes = true;
         this.setMaxDamage(0);
@@ -28,22 +28,19 @@ public class ItemNPLumber extends ItemTerra {
     }
 
     @Override
-    public IIcon getIconFromDamage(int meta)
-    {
+    public IIcon getIconFromDamage(int meta) {
         return icons[meta];
     }
 
     @Override
-    public void registerIcons(IIconRegister registerer)
-    {
+    public void registerIcons(IIconRegister registerer) {
         for(int i = 0; i < Global.WOOD_ALL.length; i++) {
             icons[i] = registerer.registerIcon(Tags.MODID + ":" + "wood/"+Global.WOOD_ALL[i]+"NPPlank");
         }
     }
 
     @Override
-    public void getSubItems(Item par1, net.minecraft.creativetab.CreativeTabs par2CreativeTabs, List list)
-    {
+    public void getSubItems(Item par1, net.minecraft.creativetab.CreativeTabs par2CreativeTabs, List list) {
         for(int i = 0; i < Global.WOOD_ALL.length; i++) {
             list.add(new ItemStack(this,1,i));
         }

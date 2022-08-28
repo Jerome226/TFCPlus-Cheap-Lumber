@@ -43,9 +43,7 @@ public class ItemSetup {
     }
     public static void registerRecipes() {
 
-        for(int i = 0; i < Global.WOOD_ALL.length; i++){
-        {
-
+        for (int i = 0; i < Global.WOOD_ALL.length; i++) {
             //GameRegistry.addRecipe(new ItemStack(doors[i]), "WW", "WW", "WW", 'W', new ItemStack(ItemSetup.NPPlank, 1, i));
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.chest, 1, i), "###", "# #", "###", '#', new ItemStack(ItemSetup.NPPlank, 1, i)));
             GameRegistry.addRecipe(new ItemStack(TFCBlocks.toolRack, 1, i), "###", "   ", "###", '#', new ItemStack(ItemSetup.NPPlank, 1, i));
@@ -55,7 +53,7 @@ public class ItemSetup {
             GameRegistry.addRecipe(new ItemStack(TFCBlocks.barrel, 1, i), "# #", "# #", "###", '#', new ItemStack(ItemSetup.NPPlank, 1, i));
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TFCBlocks.loom, 1, i), "LLL", "LSL", "L L", 'L', new ItemStack(ItemSetup.NPPlank, 1, i), 'S', "stickWood"));
 
-            if(i>=0 & i<=15){
+            if (i <= 15) {
                 GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemSetup.NPPlank, 4, i), new ItemStack(TFCBlocks.planks, 1, i), "itemSaw"));
                 GameRegistry.addRecipe(new ItemStack(TFCBlocks.planks, 1, i), "11", "11", '1', new ItemStack(ItemSetup.NPPlank, 1, i));
 
@@ -67,12 +65,12 @@ public class ItemSetup {
                         new ItemStack(TFCBlocks.planks, 1, i));
                 GameRegistry.addRecipe(new ItemStack(TFCBlocks.armorStand, 1, i), "###", " # ", "%%%", '#', new ItemStack(ItemSetup.NPPlank, 1, i), '%',
                         new ItemStack(TFCBlocks.planks, 1, i));
-            } else if(i>15 & i<=31){
-                int i2 = i-16;
+            } else if (i > 15 && i <= 31) {
+                int i2 = i - 16;
                 GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemSetup.NPPlank, 4, i), new ItemStack(TFCBlocks.planks2, 1, i2), "itemSaw"));
                 GameRegistry.addRecipe(new ItemStack(TFCBlocks.planks2, 1, i2), "11", "11", '1', new ItemStack(ItemSetup.NPPlank, 1, i));
 
-                if(i2+16<32 & i2>15) {
+                if (i2 + 16 < 32 && i2 > 15) {
                     GameRegistry.addRecipe(new ItemStack(TFCBlocks.fence2, 6, i2), "LPL", "LPL", 'L', new ItemStack(TFCItems.logs, 1, 2 * i), 'P',
                             new ItemStack(ItemSetup.NPPlank, 1, i2 + 16));
                     GameRegistry.addRecipe(new ItemStack(TFCBlocks.fence2, 6, i2), "LPL", "LPL", 'L', new ItemStack(TFCItems.logs, 1, 2 * i + 1), 'P',
@@ -83,8 +81,8 @@ public class ItemSetup {
 
                 GameRegistry.addRecipe(new ItemStack(TFCBlocks.armorStand2, 1, i2), "###", " # ", "%%%", '#', new ItemStack(ItemSetup.NPPlank, 1, i), '%',
                         new ItemStack(TFCBlocks.planks2, 1, i2));
-            } else if(i == 32){
-                int i3 = i-32;
+            } else if (i == 32) {
+                int i3 = i - 32;
                 GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemSetup.NPPlank, 4, i), new ItemStack(TFCBlocks.planks3, 1, i3), "itemSaw"));
                 GameRegistry.addRecipe(new ItemStack(TFCBlocks.planks3, 1, i3), "11", "11", '1', new ItemStack(ItemSetup.NPPlank, 1, i));
 
@@ -98,29 +96,15 @@ public class ItemSetup {
                         new ItemStack(TFCBlocks.planks3, 1, i3));
 
             }
-
         }
-
-
-        }
-
-
     }
 
     public static void removeRecipe(Item resultItem, int stacksize, int meta, String modID) {
         ItemStack resultStack = new ItemStack(resultItem, stacksize, meta);
-        ItemStack recipeResult = null;
-        ArrayList recipes = (ArrayList) CraftingManager.getInstance().getRecipeList();
+        ArrayList<IRecipe> recipes = (ArrayList<IRecipe>) CraftingManager.getInstance().getRecipeList();
         for (int scan = 0; scan < recipes.size(); scan++) {
-            IRecipe tmpRecipe = (IRecipe) recipes.get(scan);
-            if (tmpRecipe instanceof ShapedRecipes) {
-                ShapedRecipes recipe = (ShapedRecipes)tmpRecipe;
-                recipeResult = recipe.getRecipeOutput();
-            }
-            if (tmpRecipe instanceof ShapelessRecipes) {
-                ShapelessRecipes recipe = (ShapelessRecipes)tmpRecipe;
-                recipeResult = recipe.getRecipeOutput();
-            }
+            IRecipe tmpRecipe = recipes.get(scan);
+            ItemStack recipeResult = tmpRecipe.getRecipeOutput();
             if (ItemStack.areItemStacksEqual(resultStack, recipeResult)) {
                 System.out.println(modID + " Removed Recipe: " + recipes.get(scan) + " -> " + recipeResult);
                 recipes.remove(scan);

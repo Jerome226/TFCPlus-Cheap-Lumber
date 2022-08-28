@@ -10,7 +10,7 @@ import com.fuguclub.tfccheaplumber.Items.ItemSetup;
 @Mod(modid = Tags.MODID, version = Tags.VERSION, name = Tags.MODNAME, acceptedMinecraftVersions = "[1.7.10]", dependencies = "after:terrafirmacraftplus")
 public class TFCCheapLumber {
 
-    private static Logger LOG = LogManager.getLogger(Tags.MODID);
+    private static final Logger LOG = LogManager.getLogger(Tags.MODID);
 
     @SidedProxy(clientSide= Tags.GROUPNAME + ".ClientProxy", serverSide=Tags.GROUPNAME + ".CommonProxy")
     public static CommonProxy proxy;
@@ -19,15 +19,15 @@ public class TFCCheapLumber {
     // preInit "Run before anything else. Read your config, create blocks, items,
     // etc, and register them with the GameRegistry."
     public void preInit(FMLPreInitializationEvent event) {
-        ItemSetup.removeExistingRecipes();
+        ItemSetup.loadItems();
+        ItemSetup.registerItems();
         proxy.preInit(event);
     }
 
     @Mod.EventHandler
     // load "Do your mod setup. Build whatever data structures you care about. Register recipes."
     public void init(FMLInitializationEvent event) {
-        ItemSetup.loadItems();
-        ItemSetup.registerItems();
+        ItemSetup.removeExistingRecipes();
         ItemSetup.registerRecipes();
         proxy.init(event);
     }
