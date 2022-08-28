@@ -37,9 +37,9 @@ public class ItemSetup {
     }
 
     public static void removeExistingRecipes() {
-        //for(int i = 0; i < 32; i++) {
-        //removeRecipe(new Item"terrafirmacraftplus:Chest TFC"), 1, i);
-        //}
+        for(int i = 0; i < 32; i++) {
+        removeRecipe(GameRegistry.findItem("terrafirmacraftplus", "Chest TFC"), 1, i, "terrafirmacraftplus");
+        }
     }
     public static void registerRecipes() {
 
